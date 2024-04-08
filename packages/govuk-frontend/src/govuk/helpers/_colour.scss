@@ -1,6 +1,11 @@
-@import "../settings/colours-palette";
-@import "../settings/colours-organisations";
-@import "../settings/warnings";
+@use "../settings/colours-palette";
+@use "../settings/colours-organisations";
+@use "../settings/warnings";
+
+@use "sass:color";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
 
 ////
 /// @group helpers/colour
@@ -21,22 +26,22 @@
 
 @function govuk-colour($colour, $legacy: false) {
   // Output a warning if $legacy is set to anything.
-  @if $legacy and _should-warn("legacy-colour-param") {
-    @warn _warning-text("legacy-colour-param", "The `$legacy` parameter of " +
+  @if $legacy and warnings.should-warn("legacy-colour-param") {
+    @warn warnings.warning-text("legacy-colour-param", "The `$legacy` parameter of " +
     "`govuk-colour` is deprecated and is non-operational. It will be " +
     "removed in the next major version.");
   }
 
-  @if type-of($colour) == "color" {
+  @if meta.type-of($colour) == "color" {
     // stylelint-disable-next-line scss/function-quote-no-quoted-strings-inside
-    $colour: quote("#{$colour}");
+    $colour: string.quote("#{$colour}");
   }
 
-  @if not map-has-key($govuk-colours, $colour) {
+  @if not map.has-key(colours-palette.$govuk-colours, $colour) {
     @error "Unknown colour `#{$colour}`";
   }
 
-  @return map-get($govuk-colours, $colour);
+  @return map.get(colours-palette.$govuk-colours, $colour);
 }
 
 /// Get the colour for a government organisation
@@ -53,16 +58,16 @@
 /// @access public
 
 @function govuk-organisation-colour($organisation, $websafe: true) {
-  @if not map-has-key($govuk-colours-organisations, $organisation) {
+  @if not map.has-key(colours-organisations.$govuk-colours-organisations, $organisation) {
     @error "Unknown organisation `#{$organisation}`";
   }
 
-  $org-colour: map-get($govuk-colours-organisations, $organisation);
+  $org-colour: map.get(colours-organisations.$govuk-colours-organisations, $organisation);
 
-  @if $websafe and map-has-key($org-colour, colour-websafe) {
-    @return map-get($org-colour, colour-websafe);
+  @if $websafe and map.has-key($org-colour, colour-websafe) {
+    @return map.get($org-colour, colour-websafe);
   } @else {
-    @return map-get($org-colour, colour);
+    @return map.get($org-colour, colour);
   }
 }
 
@@ -74,7 +79,7 @@
 /// @access public
 
 @function govuk-shade($colour, $percentage) {
-  @return mix(#000000, $colour, $percentage);
+  @return color.mix(#000000, $colour, $percentage);
 }
 
 /// Make a colour lighter by mixing it with white
@@ -85,5 +90,5 @@
 /// @access public
 
 @function govuk-tint($colour, $percentage) {
-  @return mix(govuk-colour("white"), $colour, $percentage);
+  @return color.mix(govuk-colour("white"), $colour, $percentage);
 }

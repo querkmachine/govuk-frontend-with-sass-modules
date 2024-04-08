@@ -2,6 +2,11 @@
 /// @group helpers/layout
 ////
 
+@use "../settings/measurements";
+@use "../helpers/media-queries";
+
+@use "sass:map";
+
 /// Grid width percentage
 ///
 /// @param {String} $key - Name of grid width (e.g. two-thirds)
@@ -10,8 +15,8 @@
 /// @access public
 
 @function govuk-grid-width($key) {
-  @if map-has-key($govuk-grid-widths, $key) {
-    @return map-get($govuk-grid-widths, $key);
+  @if map.has-key(measurements.$govuk-grid-widths, $key) {
+    @return map.get(measurements.$govuk-grid-widths, $key);
   }
 
   @error "Unknown grid width `#{$key}`";
@@ -53,8 +58,8 @@
   @if $at != desktop {
     width: 100%;
   }
-  padding: 0 $govuk-gutter-half;
-  @include govuk-media-query($from: $at) {
+  padding: 0 measurements.$govuk-gutter-half;
+  @include media-queries.govuk-media-query($from: $at) {
     width: govuk-grid-width($width);
     float: $float;
   }

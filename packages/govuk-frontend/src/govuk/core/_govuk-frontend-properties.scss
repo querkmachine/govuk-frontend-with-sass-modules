@@ -1,10 +1,14 @@
+@use "../settings/all" as settings;
+
+@use "../tools/px-to-rem";
+
 :root {
   // This variable is automatically overwritten during builds and releases.
   // It doesn't need to be updated manually.
   --govuk-frontend-version: "development";
 
   // CSS custom property for each breakpoint
-  @each $name, $value in $govuk-breakpoints {
-    --govuk-frontend-breakpoint-#{$name}: #{govuk-px-to-rem($value)};
+  @each $name, $value in settings.$govuk-breakpoints {
+    --govuk-frontend-breakpoint-#{$name}: px-to-rem.govuk-px-to-rem($value);
   }
 }

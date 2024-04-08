@@ -44,9 +44,9 @@ $govuk-suppressed-warnings: () !default;
 /// @param {String} $message - The message to use when calling `@warn`
 /// @access private
 
-@mixin _warning($key, $message) {
-  @if _should-warn($key) {
-    @warn _warning-text($key, $message);
+@mixin warning($key, $message) {
+  @if should-warn($key) {
+    @warn warning-text($key, $message);
     $govuk-suppressed-warnings: append($govuk-suppressed-warnings, $key) !global;
   }
 }
@@ -56,7 +56,7 @@ $govuk-suppressed-warnings: () !default;
 /// @param {String} $key - The key to be checked against `$govuk-suppressed-warnings`.
 /// @access private
 
-@function _should-warn($key) {
+@function should-warn($key) {
   @return index($govuk-suppressed-warnings, $key) == null;
 }
 
@@ -66,6 +66,6 @@ $govuk-suppressed-warnings: () !default;
 /// @param {String} $message - The warning text.
 /// @access private
 
-@function _warning-text($key, $message) {
+@function warning-text($key, $message) {
   @return $message + " To silence this warning, update $govuk-suppressed-warnings " + 'with key: "#{$key}"';
 }
