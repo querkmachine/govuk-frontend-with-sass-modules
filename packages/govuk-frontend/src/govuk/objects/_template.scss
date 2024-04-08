@@ -1,11 +1,16 @@
-@import "../base";
+@use "../settings/all" as settings;
 
-@include govuk-exports("govuk/objects/template") {
+@use "../tools/exports";
+
+@use "../helpers/media-queries";
+@use "../helpers/spacing";
+
+@include exports.govuk-exports("govuk/objects/template") {
   // Applied to the <html> element
   .govuk-template {
     // Set the overall page background colour to the same colour as used by the
     // footer to give the illusion of a long footer.
-    background-color: $govuk-canvas-background-colour;
+    background-color: settings.$govuk-canvas-background-colour;
 
     // Prevent automatic text sizing, as we already cater for small devices and
     // would like the browser to stay on 100% text zoom by default.
@@ -24,7 +29,7 @@
     // scroll-padding unnecessarily is better than risking not having scroll-padding
     // and needing it to account for exit this page.
     @supports (position: sticky) {
-      scroll-padding-top: govuk-spacing(9);
+      scroll-padding-top: spacing.govuk-spacing(9);
 
       &:not(:has(.govuk-exit-this-page)) {
         scroll-padding-top: 0;
@@ -33,7 +38,7 @@
 
     // Force the scrollbar to always display in IE, to prevent horizontal page
     // jumps as content height changes (e.g. autocomplete results open).
-    @include govuk-media-query($media-type: screen) {
+    @include media-queries.govuk-media-query($media-type: screen) {
       overflow-y: scroll;
     }
   }
@@ -44,6 +49,6 @@
     // own containers.
     margin: 0;
     // Set the overall body of the page back to the typical background colour.
-    background-color: $govuk-body-background-colour;
+    background-color: settings.$govuk-body-background-colour;
   }
 }

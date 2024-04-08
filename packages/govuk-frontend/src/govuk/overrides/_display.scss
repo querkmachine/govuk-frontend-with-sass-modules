@@ -1,5 +1,9 @@
+@use "../tools/exports";
+
+@use "../helpers/media-queries";
+
 // stylelint-disable declaration-no-important
-@include govuk-exports("govuk/overrides/display") {
+@include exports.govuk-exports("govuk/overrides/display") {
   .govuk-\!-display-inline {
     display: inline !important;
   }
@@ -16,7 +20,7 @@
     display: none !important;
   }
 
-  @include govuk-media-query($media-type: print) {
+  @include media-queries.govuk-media-query($media-type: print) {
     .govuk-\!-display-none-print {
       display: none !important;
     }

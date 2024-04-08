@@ -1,5 +1,11 @@
+@use "../settings/all" as settings;
+
+@use "../tools/exports";
+
+@use "../helpers/media-queries";
+
 // stylelint-disable declaration-no-important
-@include govuk-exports("govuk/overrides/width") {
+@include exports.govuk-exports("govuk/overrides/width") {
   .govuk-\!-width-full {
     width: 100% !important;
   }
@@ -7,7 +13,7 @@
   .govuk-\!-width-three-quarters {
     width: 100% !important;
 
-    @include govuk-media-query($from: tablet) {
+    @include media-queries.govuk-media-query($from: tablet) {
       width: 75% !important;
     }
   }
@@ -15,7 +21,7 @@
   .govuk-\!-width-two-thirds {
     width: 100% !important;
 
-    @include govuk-media-query($from: tablet) {
+    @include media-queries.govuk-media-query($from: tablet) {
       width: 66.66% !important;
     }
   }
@@ -23,7 +29,7 @@
   .govuk-\!-width-one-half {
     width: 100% !important;
 
-    @include govuk-media-query($from: tablet) {
+    @include media-queries.govuk-media-query($from: tablet) {
       width: 50% !important;
     }
   }
@@ -31,7 +37,7 @@
   .govuk-\!-width-one-third {
     width: 100% !important;
 
-    @include govuk-media-query($from: tablet) {
+    @include media-queries.govuk-media-query($from: tablet) {
       width: 33.33% !important;
     }
   }
@@ -39,7 +45,7 @@
   .govuk-\!-width-one-quarter {
     width: 100% !important;
 
-    @include govuk-media-query($from: tablet) {
+    @include media-queries.govuk-media-query($from: tablet) {
       width: 25% !important;
     }
   }
